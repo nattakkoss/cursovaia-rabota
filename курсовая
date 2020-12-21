@@ -1,0 +1,1169 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <cstdio> 
+#include <cstdlib> 
+#include <chrono>
+using namespace std;
+using namespace chrono;
+void laba2_1()
+{
+     const int N=100;
+     int arr[N];
+     for (int i = 0; i < 100; i++)
+      {
+      arr[i] = rand() % 199 - 99;//Заполняем массив рандомными числами
+      }
+      cout<< " Элементы массива, с которыми мы будем дальше работать: ";
+          for (int i = 0; i < 100; i++)
+          {
+          cout <<  arr[i] << "  ";
+          }
+         cout<< endl;
+cout << "\n";
+}
+void laba2_2()
+{
+     const int N=100;
+     int arr[N];
+     auto insertSortTime = system_clock::now();//Запускаем время сортировки 
+    for (int l=1;  l<N;l++)
+    { 
+        int z=arr[l];
+        int x=l-1;
+         while (x>=0 && arr[x]> z)
+         {
+             arr[x+1]=arr[x];
+             arr[x]=z;
+             x--;
+              
+         }
+    }
+     auto endCountingTime = system_clock::now();//Останавливаем время сортировки
+     duration<double> elapsed = endCountingTime - insertSortTime;//Находим время сортировки 
+    cout<<" Отсортированный массив: ";
+ for (int j = 0; j < N; ++j)
+      {
+       std::cout <<  arr[j] << ' ';
+      }
+     cout << "\n";
+     cout << std::fixed << "Отсортировала методом insert за : " << elapsed.count() << " секунд" << "\n";
+}
+void laba2_3()
+{
+   
+ const int N=100;
+ int arr[N];
+ int minInUnsorted;
+ int maxInUnsorted;
+ for (int l=1;  l<N;l++)
+    { 
+        int z=arr[l];
+        int x=l-1;
+         while (x>=0 && arr[x]> z)
+         {
+             arr[x+1]=arr[x];
+             arr[x]=z;
+             x--;
+              
+         }
+    } 
+    auto startToSearchMinimum = system_clock::now();//Начинаем отсчет времени поиска миниамльного значения массива
+ cout << "Минимальный элемент отсортированного массива: " << arr[0] << "\n";//Выводим  минимальный элемент массива
+ auto finishSearchingMinimum = system_clock::now();//Останавливаем время поиска минимального массива
+ duration<double> timeForSearchMinimum = finishSearchingMinimum - startToSearchMinimum;//находим время поиска
+ cout << fixed << "Время на поиск минимального элемента в отсортированном массиве: " << timeForSearchMinimum.count() << " секунд" "\n";
+                        
+ // Найдем максимальный элемент отсортированного массива и замерим время его поиска
+    auto startToSearchMaximum = system_clock::now();
+    cout << "Максимальный элемент отсортированного массива: " << arr[99] << "\n";
+    auto finishSearchingMaximum = system_clock::now();
+    duration<double> timeForSearchMaximum = finishSearchingMaximum - startToSearchMaximum;
+    cout << fixed << "Время на поиск максимального элемента в отсортированном массиве: " << timeForSearchMaximum.count() << " секунд" "\n";
+    cout << "\n";
+     
+     
+     
+    // Найдем минимальный  и максимальный элемент неотсортированного массива
+          minInUnsorted = arr[0];
+          maxInUnsorted = arr[0];
+    
+    // Начало замера времени поиска Мин и Макс элементов в неотсортированном массиве
+    auto startToSearchMaxAndMinInUnsorted = system_clock::now();
+            for (int f = 0; f < 100; f++)
+            {
+                if (arr[f] <= minInUnsorted)
+                   {
+                    minInUnsorted = arr[f];
+                   }
+                if (arr[f] >= maxInUnsorted)
+                   {
+                    maxInUnsorted = arr[f];
+                   }
+            }
+    // Конец замера времени поиска Мин и Макс элементов в неотсортированном массиве
+    auto endToSearchMaxAndMinInUnsorted = system_clock::now();
+    duration<double> searchMaxAndMinInUnsorted = endToSearchMaxAndMinInUnsorted - startToSearchMaxAndMinInUnsorted;
+        cout << "Минимальный элемент неотсортированного массива: " << minInUnsorted << "\n";
+         cout << "Максимальный элемент неотсортированного массива: " << maxInUnsorted << "\n";
+         cout << fixed << "Время на поиск минимального элемента в неотсортированном массиве: " << searchMaxAndMinInUnsorted.count() << " секунд" "\n";
+         cout << fixed << "Время на поиск максимального элемента в неотсортированном массиве: " << searchMaxAndMinInUnsorted.count() << " секунд" "\n";
+         cout << "\n";
+                       
+}
+void laba2_4()
+{
+     
+     const int N=100;
+     int arr[N];
+     for (int l=1;  l<N;l++)
+    { 
+        int z=arr[l];
+        int x=l-1;
+         while (x>=0 && arr[x]> z)
+         {
+             arr[x+1]=arr[x];
+             arr[x]=z;
+             x--;
+              
+         }
+    } 
+         cout << "Min: " << arr[0] << " " << "Max: " << arr[99];
+         int middle = (arr[0] + arr[99]) / 2;
+         cout << "Среднее значение максимального и минимального числа: " << middle << "\n";
+         cout << "\n";
+          // Ищем в массиве числа, равные среднему значению
+                        int znach = 0;
+                        for (int i = 0; i < 100; i++) 
+                        {
+                            if (arr[i] == middle)
+                            {
+                                znach += 1;
+                                cout << "Равное значение в массиве на позиции " << i << "\n";
+                                cout << "Всего таких в массиве " << znach << "\n";
+                                cout << "\n";
+                            }
+                        }
+}
+void laba2_7()
+{
+         const int N=100;
+         int arr[N];
+       int numberpol;
+       bool ifFound = false;
+       int minInd = 0;
+       int maxInd = 99;
+       int binInd = (maxInd + minInd) / 2;
+        for (int l=1;  l<N;l++)
+    { 
+        int z=arr[l];
+        int x=l-1;
+         while (x>=0 && arr[x]> z)
+         {
+             arr[x+1]=arr[x];
+             arr[x]=z;
+             x--;
+              
+         }
+    } 
+                        
+       cout << "Какое число необходимо найти в массиве? ";
+       cin >> numberpol;
+                        
+          // Пройдемся перебором и замерим время
+         auto startssrectSearch = system_clock::now();
+         for (int i = 0; i < 100; i++)
+        {
+           if (arr[i] == numberpol) 
+           {
+            ifFound = true;
+            }
+        }
+        auto finishssrectSearch = system_clock::now();
+        duration<double> timeForDirectSearch = finishssrectSearch - startssrectSearch;
+                        
+                        
+        // Пройдемся бинарным поиском и замерим время
+        auto startBinary = system_clock::now();
+         while (numberpol != arr[binInd]) //Пока введенное число != массиву от бинарного индекса
+         {
+           if ((maxInd - minInd) == 1) //проверяем , чтоб не оказалось одно число в массиве, если оказалось одно число, то у нас нет чисел, которые повторяются
+            {
+             cout << "Такого числа в массиве нет" << "\n";
+             break;
+            }
+                              
+            if (numberpol > arr[binInd]) //Отсеиваем значения для поиска, котрые меньше массива от бинарного индекса
+            {
+            minInd = binInd;
+            binInd = (maxInd + minInd) / 2;
+                                
+            } 
+            else if (numberpol < arr[binInd]) //Отсеиваем значения для поиска, котрые больше массива от бинарного индекса
+                   {
+                     maxInd = binInd;
+                    binInd = (maxInd + minInd) / 2;
+                    }
+                            
+          }
+        if (numberpol == arr[binInd]) 
+          {
+            cout << "В отсортированном массиве найден на позиции " << binInd << "\n";
+           }
+            auto finishBinary = system_clock::now();
+            duration<double> timeForBinarySearch = finishBinary - startBinary;
+            cout << fixed << "Разница между Бинарным поиском и перебором= " << timeForBinarySearch.count() - timeForDirectSearch.count()<< " секунд" << "\n";
+            cout << "\n";
+ }
+ void laba2_8()
+ {
+          const int N=100;
+          int arr[N];
+           for (int l=1;  l<N;l++)
+            { 
+        int z=arr[l];
+        int x=l-1;
+         while (x>=0 && arr[x]> z)
+            {
+             arr[x+1]=arr[x];
+             arr[x]=z;
+             x--;
+              
+             }
+           } 
+         cout<<" Отсортированный массив: ";
+       for (int j = 0; j < N; ++j)
+        {
+         std::cout <<  arr[j] << ' ';
+         }
+     cout << endl;
+     cout << "Чтобы поменять местами два элемента массива, введи их индексы:  ";
+                 cout << "\n";
+                int elementToChange1, elementToChange2;
+                cout << "Первый: ";
+                cin >> elementToChange1;
+                cout << "Второй: ";
+                cin >> elementToChange2;
+                cout << "\n";
+                        
+                //  Замеряем время на замену
+                 auto startExchange = system_clock::now();
+                 swap(arr[elementToChange1], arr[elementToChange2]);
+                 auto finishExchange = system_clock::now();
+                 duration<double> exchangeDuration = finishExchange - startExchange;
+                 cout << fixed << "Поменял за: " << exchangeDuration.count() << " секунд" "\n";
+                 cout << "\n";
+                        
+                // Выводим готовый массив (после замены)
+                 cout << "Поменялось вот так: " << "\n";
+                 for (int i = 0; i < 100; i++) 
+                 {
+                 cout << arr[i] << " ";
+                 }
+                        cout << "\n";
+ }
+//Для четвертой лабы
+
+void edit(string &g)
+{
+
+    cout << "Неотредактированный текст: " << g << endl;
+
+    // убираем повторяющиеся пробелы
+    for (int j = 0; j < g.length(); j++)//Начинаем перебирать все символы и знаки
+    {
+        if (g[j] == ' ') //Начинаем рассматривать все пробелы
+        {
+            while (g[j + 1] == ' ')//Находим повторяющийся пробел
+                g.erase(j + 1, 1);//Удаляем его
+        }
+    }
+    if (g[0] == ' ')//Рассматриваем вариант того , что в начале строчки будет стоять пробел 
+        g.erase(0, 1);
+
+    if (g[g.length() - 2] == ' ')//вариант пробелов в самом конце
+        g.erase(g.length() - 2, 1); 
+        
+     // удалить лишние знаки препинания 
+      for (int j = 0; j < g.length(); j++)
+    {
+        if (g[j] == '.' && g[j + 1] == '.' && g[j + 2] == '.')//Избегаем вариант удаления многоточия
+        {
+            j += 2;
+        }
+        else
+            if ((g[j] == '.') || (g[j] == '?') || (g[j] == '!') || (g[j] == ',') || (g[j] == '"') || (g[j] == ';') || (g[j] == ':'))
+            {
+                while (g[j + 1] == '.')//Создаем цикл удаления повторяющихся символов .
+                    g.erase(j + 1, 1);
+                 while (g[j + 1] == '?')//Создаем цикл удаления повторяющихся символов ?
+                    g.erase(j + 1, 1);
+                 while (g[j + 1] == '!')//Создаем цикл удаления повторяющихся символов !
+                    g.erase(j + 1, 1);
+                 while (g[j + 1] == ',')//Создаем цикл удаления повторяющихся символов ,
+                    g.erase(j + 1, 1);
+                 while (g[j + 1] == '"')//Создаем цикл удаления повторяющихся символов "
+                    g.erase(j + 1, 1);
+                 while (g[j + 1] == ';')//Создаем цикл удаления повторяющихся символов ;
+                    g.erase(j + 1, 1);
+                 while (g[j + 1] == ':')//Создаем цикл удаления повторяющихся символов :
+                    g.erase(j + 1, 1);
+            }
+        }
+         // понижение регистра.
+    for (int i = 0; i < g.length(); i++)
+    {
+        g[i] = tolower(g[i]);//Функция tolower выполняет преобразование прописных букв в строчные.
+    }
+         cout <<"Текст после редактирвоания: " <<g << endl; 
+}
+bool filter1(const string &g)
+{
+	return g.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") == string::npos;
+}
+void zadanie_3( string &g)
+{
+    string g1, g2;
+    int l=0;
+    cout <<"Слова, в которых повторяются буквы: ";
+    for (int i=0;i<g.length()+1;i++)
+    {
+        if (g[i]!=' ' && g[i]!='\0')
+        {
+            g1+=g[i];
+        }
+        else
+        {
+            for (int j=0;j<g1.length()+1;j++)
+            {
+                for (int k=j+1;k<g1.length()+1;k++)
+                {
+                    if (g1[j]==g1[k])
+                        l++;
+                }
+                if (l>0)
+                {
+                    cout << g1 << " " ;
+                   g2+=g1=" ";
+                    break;
+                }
+            }
+            l=0;
+            g1="";
+        }
+    }
+    
+}
+void zadanie_4(string &a)
+  {
+     int l;
+     char n;
+     char n1;
+     cout << "Какую полседоватльность нужно удалить: ";
+     cin >> n>>n1;
+     cout << endl;
+     for (int j = 0; j < a.length(); j++)//Начинаем перебирать все символы и знаки
+    {
+        if ((a[j] == n) && (a[j+1] == n1))
+        {
+         a.erase(j , 1);
+         a.erase(j , 1);
+        }
+    }
+    cout <<"Теперь последовательность выглядит так: " <<a << endl;
+   }
+   void laba4_all()
+   {
+        cout << "!!!Далее вводите слова на латинице!!!\n";
+    int variant = 0;
+ 	string zx;
+ 	string a1, a2;
+ 	cout << "Введите строку: ";
+ 	cin.ignore();
+	getline(cin, zx);
+	bool filter = zx.find_first_not_of(",.:;?!-()'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ") != string::npos;
+    bool uslovie=0;//Для проверки условия о кол. символов
+    stringstream stroka(zx);
+    string slovo;
+    int nomer_slov=0;
+    while (stroka >>slovo)//Вводим содержимое строки и начинаем проверку цикла 1 слова на условия
+      {
+         nomer_slov++;//создаём счётчик слов
+         if ((slovo.size()<1) || (slovo.size()>=10))//Проверка на кол. символов
+         {
+             uslovie=1;
+         }
+      }
+    if ((uslovie==11) || (nomer_slov<1)|| (nomer_slov>=50) || (filter == 1))
+    {
+        cout << "Ошибка в условии.\n";
+        cout << "Следующие условия должны быть соблюдены: \n";
+        cout << "1. Строка может содержать 1-50 слов.\n";
+        cout << "2. Слова содержат 1-10 символов.\n";
+        cout << "3. Слова содержат только латиницу.\n";
+    }
+      while (variant != 4) 
+     {
+    int variant;
+        cout << "Выберите задание: " << endl;
+        cout << endl;
+        cout << "1.Отредактируй текст" << endl;
+        cout << "2.3 задание 4 вариант "  << endl;
+        cout << "3.4 задание 3 вариант " << endl;
+        cout << "4. ";
+        cout <<"Выход " << endl;
+        cout << ">>> ";
+        cin >> variant;
+        switch (variant)
+        {
+        case (1): 
+          edit(zx);
+          cout << "\n\n";
+          break;
+         case (2):
+         zadanie_3(zx);
+          cout << "\n\n";
+          break;
+         case (3):
+         zadanie_4(zx);
+         break;
+        }
+     }
+   }
+int main()
+{
+    int task_lab1;
+    int  task;
+    do {
+
+        cout << "Номер лаб.работы: \n";
+        cout << "(1) Первая работа\n";
+        cout << "(2) Вторая работа\n";
+        cout << "(3) Третья работа\n";
+        cout << "(4) Четвертая работа\n";
+        cout << "(0) Exit\n";
+        cout << ">>> ";
+        cin >> task;
+        cout << "\n\n";
+
+        switch (task)
+        {
+           
+        case 1:
+            if (task == 1) // work 1 
+            {
+    
+
+                do
+                {
+                    cout << "Введите номер задания: \n\n";
+                    cout << "1.Вывести, сколько памяти (в байтах) на вашем компьютере отводится под различные типы данных.\n\n";
+                    cout << "2.Вывести на экран двоичное представление в памяти (все разряды) целого числа.\n\n";
+                    cout << "3.Вывести на экран двоичное представление в памяти (все разряды) типа float.\n\n";
+                    cout << "4.Вывести на экран двоичное представление в памяти (все разряды) типа double.\n\n";
+                    cout << "5.Exit\n";
+                    cout << ">>>:  ";
+
+                    cin >> task_lab1;
+                    switch (task_lab1)
+                    {
+                    case 1:
+                       {
+                        cout<<"int: "<<sizeof(int)<<"\n";
+                        cout<<"short int: "<<sizeof(short int)<<"\n";
+                        cout<<"long int: "<<sizeof(long int)<<"\n";
+                        cout<<"float: "<<sizeof(float)<<"\n";
+                        cout<<"double: "<<sizeof(double)<<"\n";
+                        cout<<"long double: "<<sizeof(long double)<<"\n";
+                        cout<<"char: "<<sizeof(char)<<"\n";
+                        cout<<"bool: "<<sizeof(bool)<<"\n";
+                        break;
+                       }
+                    case 2:
+
+                    {
+                    int h;
+                    unsigned int mask = 1 << 31;
+                    cout << "Вывод на экран двоичного представления в памяти целого числа , Введите число: ";
+                    cin >> h;//Вводим целое число
+                    cout << " Результат: ";
+                    for (int i = 0; i <= 31; i++)
+                       {
+                        if (i == 1)
+                         {
+                          cout << " ";
+                         }
+                      putchar(h & mask ? '1' : '0');//если 1, то возвращается 1, иначе 0
+                      mask >>= 1;// побитовый сдвиг вправо на 1 бит
+                     }
+                    cout << "\n";
+                        break;
+                    }
+                    case 3:
+                        cout<<",sc,cls";
+                        break;
+
+                    case 4:
+
+                     cout<<",sc,cls";
+                      break;
+                   
+                    case 0:
+                    break;
+                    }
+
+                } while (task_lab1 != 5);
+            }
+            break;
+
+        case 2:
+            if (task == 2) // work 2
+            {
+                int task2;
+                const int N=100;
+                int arr[N];
+                int minInUnsorted;
+                int maxInUnsorted;
+                do
+                {
+                    cout << "Введите задание:\n";
+                    cout << "1.Создать целочисленный массив размерности N = 100.\n";
+                    cout << "2.Отсортировать заданный в пункте 1 элементы от меньшего к большему. Определить время, затраченное на сортировку,\n";
+                    cout << "3.Найти максимальный и минимальный элемент массива. Подсчитайте время поиска этих элементов в отсортированном массиве\n";
+                    cout << "4.Вывести среднее значение  максимального и минимального значения\n";
+                    cout << "5.Вывести количество элементов в отсортированном массиве, которые меньше числа a\n";
+                    cout << "6.Вывести количество элементов в отсортированном массиве, которые больше числа b\n";
+                    cout << "7.Вывести информацию о том, есть ли введенное пользователем число в отсортированном массиве\n";
+                    cout << "8.Поменять местами элементы массива\n";
+                    cout << "9.Exit\n";
+                    cout << "\n";
+
+                    cout << ">>> ";
+                    cin >> task2;
+
+                    switch (task2)
+                    {
+
+                    case 1:
+                    laba2_1();
+                    break;
+                    case 2:
+                     laba2_1();
+                     laba2_2();   
+                     break;
+                    case 3:
+                       laba2_1();
+                       laba2_3();
+                        break;
+
+                    case 4:
+                        laba2_1();
+                        laba2_4();
+                        break;
+
+                    case 5:
+                      laba2_1();
+                      {
+                      cout << "Для поиска элементов в отсортированном массиве, которые меньше числа a, введите a: ";
+                      int a, znaschmen=0;
+                      cin>>a;
+                      for (int i = 0; i < 100; i++)
+                     {
+                       if (arr[i] < a) 
+                       {
+                         znaschmen += 1;//Счётчик
+                        }
+                        }
+                          cout << "Меньше числа a: " << znaschmen << " элементов";
+                        cout << "\n";
+                        break;
+                      }
+                    case 6:
+                      laba2_1();
+                      {
+                          cout << "Для поиска элементов в отсортированном массиве, которые меньше больше b, введите b: ";
+                          int b, znaschbol=0;
+                          cin>>b;
+                          for (int i = 0; i < 100; i++)
+                            {
+                             if (arr[i] > b) 
+                              {
+                              znaschbol += 1;
+                              }
+                            }
+                   cout << "Больше числа b: " << znaschbol << " элементов";
+                   cout << "\n";
+                        break;
+                      }
+
+                    case 7:
+                        laba2_1();
+                        laba2_7();
+                        break;
+                    case 8:
+                        laba2_1();
+                        laba2_8();
+                        break;    
+                         }
+                    }
+
+                 while (task2 != 9);
+
+            }
+
+            break;
+
+        case 3:
+        int vari , razmer ,deistvie ;
+	razmer = 0;
+    vari = 0;
+    deistvie = 0;
+	while (vari != 8) 
+    {
+	int vari;
+    	cout << "Выберите задание: " << endl;
+		cout << endl;
+		cout << "1. Заполнить матрицу по спирали" << endl;
+		cout << "2. Переставить блоки матрицы (пункт в)'" << endl;
+		cout << "3. Сортировать элементы матрицы " << endl;
+		cout << "4. Уменьшить  элементы матрицы на введенное число " << endl;
+		cout << "5. Увеличить  элементы матрицы на введенное число " << endl;
+		cout << "6. Умножить  элементы матрицы на введенное число " << endl;
+		cout << "7. Разделить  элементы матрицы на введенное число " << endl;
+		cout << "8. ";
+		cout <<"Выход " << endl;
+		cout << ">>> ";
+		cin >> vari;
+		switch (vari)
+		{
+		 
+            
+		case (1): 
+           {
+			do 
+              {
+				cout << "Выберите размер матрицы: " << endl;
+				cout << endl;
+				cout << "1. Матрица 6x6" << endl;
+				cout << "2. Матрица 8x8" << endl;
+				cout << "3. Матрица 10x10" << endl;
+				cout << "4. Выход" << endl;
+				cout << ">>> ";
+				cin >> razmer;
+
+			    switch (razmer)
+				{
+				 case (1): 
+				
+                 {
+                  int a=6;
+                  int A[a][a];
+                  int argc , i=1,j,k, p=a/2;
+                  for (int i = 0; i < a; i++)
+                   {
+                     for (int j = 0; j < a; j++)
+                      {
+                       A[i][j] =1 + rand() % 36 ;//создаю рандомные числа для матрицы
+                      }
+                   }  
+                     cout << "Матрица до заполнения\n";
+                         for (int i = 0; i < 6; i++)
+                           {
+                            for (int j = 0; j <6; j++)
+                             {
+                              cout.width(3);// минимальное количество символов, которые будет использовать следующее выходное значение. 
+                              cout <<A[i][j]<<" ";
+                             }
+                             cout <<"\n";
+                           }
+                       for(k=1;k<=p;k++)//k-это номер витка
+                      {
+                       for (j=k-1;j<a-k+1;j++) A[k-1][j]=i++;//Определение значений верхнего  столбца 
+                       for (j=k;j<a-k+1;j++) A[j][a-k]=i++;// По правому вертикальному столбцу
+                       for (j=a-k-1;j>=k-1;--j) A[a-k][j]=i++;//по нижнему горизонтальному столбцу 
+                       for (j=a-k-1;j>=k;j--) A[j][k-1]=i++;// по левому вертикальному столбцу
+                      }
+                    cout << "Так выглядит массив размерности 6*6 в пункте а: \n";
+                     if (a%2==1) A[p][p]=a*a;
+                     for(i=0;i<a;i++)
+                     for(j=0;j<a;j++)
+                      {
+                      cout.width(3);
+                      cout <<  A[i][j];
+                      if(j==a-1) 
+                      cout << "\n";
+                      } 
+                      break;
+                 }
+				case (2):   
+                {
+                  int b=8;
+                  int B[b][b];
+                  int argc , i=1,j,k, p=b/2;
+                     for (int i = 0; i < b; i++)
+                      {
+                       for (int j = 0; j < b; j++)
+                        {
+                        B[i][j] =1 + rand() % 64 ;
+                        }
+                      }  
+                cout << "Матрица до заполнения\n";
+                    for (int i = 0; i < 8; i++)
+                      {
+                      for (int j = 0; j <8; j++)
+                        {
+                         cout.width(3); 
+                         cout <<B[i][j]<<"  ";
+                         }
+                       cout <<"\n";
+                      }
+                      for(k=1;k<=p;k++)/*Цикл по номеру витка*/
+                       {
+                       for (j=k-1;j<b-k+1;j++) B[k-1][j]=i++;/*Определение значений верхнего гор столбца*/ 
+                       for (j=k;j<b-k+1;j++) B[j][b-k]=i++;/* --//-- По правому вертикальному столбцу*/
+                       for (j=b-k-1;j>=k-1;--j) B[b-k][j]=i++;/* --//-- по нижнему горизонтальному столбцу*/ 
+                       for (j=b-k-1;j>=k;j--) B[j][k-1]=i++;/* --//-- по левому вертикальному столбцу*/
+                       }
+                  cout << "Так выглядит массив размерности 8*8 в пункте а: \n";
+                  if (b%2==1) B[p][p]=b*b;
+                  for(i=0;i<b;i++)
+                  for(j=0;j<b;j++)
+                   {
+                    cout.width(3);
+                    cout <<  B[i][j]<< "   ";
+                    if(j==b-1) 
+                    cout << "\n";
+                   } 
+                    break;
+               }
+                 case (3): 
+               	 {
+                 int c=10;
+                 int C[c][c];
+                 int argc , i=1,j,k, p=c/2;
+                  for (int i = 0; i < c; i++)
+                  {
+                   for (int j = 0; j < c; j++)
+                   {
+                   C[i][j] =1 + rand() % 100 ;
+                   }
+                  }  
+                cout << "Матрица до заполнения\n";
+                    for (int i = 0; i < 10; i++)
+                    {
+                      for (int j = 0; j <10; j++)
+                      {
+                       cout.width(3);
+                       cout <<C[i][j]<<" ";
+                      }
+                       cout <<"\n";
+                    }
+                    for(k=1;k<=p;k++)/*Цикл по номеру витка*/
+                    {
+                     for (j=k-1;j<c-k+1;j++) C[k-1][j]=i++;/*Определение значений верхнего гор столбца*/ 
+                     for (j=k;j<c-k+1;j++) C[j][c-k]=i++;/* --//-- По правому вертикальному столбцу*/
+                     for (j=c-k-1;j>=k-1;--j) C[c-k][j]=i++;/* --//-- по нижнему горизонтальному столбцу*/ 
+                     for (j=c-k-1;j>=k;j--) C[j][k-1]=i++;/* --//-- по левому вертикальному столбцу*/
+                    }
+                  cout << "Так выглядит массив размерности 10*10 в пункте а: \n";
+                    if (c%2==1) C[p][p]=c*c;
+                    for(i=0;i<c;i++)
+                    for(j=0;j<c;j++)
+                   {
+                    cout.width(3);
+                    cout <<  C[i][j]<< "   ";
+                    if(j==c-1) 
+                    cout << "\n";
+                    } 
+                    break;
+               } 
+			  }
+			}
+			while (razmer!= 4);
+			break;
+		}
+		case(2): {
+			      do {
+				      cout << "Выберите размер матрицы: " << endl;
+				      cout << endl;
+				      cout << "1. Матрица 6x6" << endl;
+				      cout << "2. Матрица 8x8" << endl;
+				      cout << "3. Матрица 10x10" << endl;
+				      cout << "4. Выход" << endl;
+				      cout << ">>> ";
+				      cin >> razmer;
+
+				  switch (razmer)
+				    {
+				     case (1): 
+                    { 
+				     int n=6,n1=1, n2=2, n3=3, n4=4, n5=5,n6=6;//создаю переменную, которая будет отвечать за порядок+ переменные , которые отвечают за номер строки.
+                     int arr[6][6];
+                     double **f = new double*[6];//Создаю многомерный массив для более эффективной работы с большими матрицами. 
+                     for (int i = 0; i < 6; i++)
+                     f[i] = new double[n];//выделяю память
+                     for (int i = 0; i < n; i++)
+                       {
+                        for (int j = 0; j < n; j++)
+                         {
+                          f[i][j] =1 + rand() % 36 ;
+                         }
+                       }  
+     
+               cout << "Матрица до перемещения блоков\n";
+                  for (int i = 0; i < n; i++)
+                  {
+                    for (int j = 0; j <n; j++)
+                     {
+                      cout.width(3);
+                      cout <<f[i][j]<<"  ";
+                     }
+                  cout <<"\n";
+                  }
+     
+      
+            double *temp, *tomp,*timp  ;//создаю указатели для обмена строками.
+            temp=f[n1-1];
+            tomp=f[n2-1];
+            timp=f[n3-1];
+            f[n1-1]=f[n6-1];
+            f[n2-1]=f[n5-1];
+            f[n3-1]=f[n4-1];
+            f[n4-1]=timp;
+            f[n5-1]=tomp;
+            f[n6-1]=temp;
+           cout << "Матрица после перемещения блоков\n";
+            for (int i = 0; i < n; i++)
+             {
+              for (int j = 0; j <n; j++)
+              {
+              cout.width(3);
+              cout <<f[i][j]<<" ";
+              }
+               cout <<"\n";
+             }
+               break;
+            }
+				case (2): 
+			    { 
+				int n=8,n1=1, n2=2, n3=3, n4=4, n5=5,n6=6, n7=7 ,n8=8;
+                int arr[8][8];
+                double **f = new double*[8]; 
+                for (int i = 0; i < 8; i++)
+                f[i] = new double[n];
+                for (int i = 0; i < n; i++)
+                 {
+                 for (int j = 0; j < n; j++)
+                  {
+                   f[i][j] =1 + rand() % 64 ;
+                  }
+                 }  
+     
+            cout << "Матрица до перемещения блоков\n";
+            for (int i = 0; i < n; i++)
+            {
+             for (int j = 0; j <n; j++)
+              {
+               cout.width(3);
+               cout <<f[i][j]<<" ";
+              }
+            cout <<"\n";
+            }
+     
+      
+        double *temp, *tomp,*timp, *tamp  ;
+        temp=f[n1-1];
+        tomp=f[n2-1];
+        timp=f[n3-1];
+        tamp=f[n4-1];
+        f[n1-1]=f[n8-1];
+        f[n2-1]=f[n7-1];
+        f[n3-1]=f[n6-1];
+        f[n4-1]=f[n5-1];
+        f[n5-1]=tamp;
+        f[n6-1]=timp;
+        f[n7-1]=tomp;
+        f[n8-1]=temp;
+          cout << "Матрица после перемещения блоков\n";
+         for (int i = 0; i < n; i++)
+         {
+          for (int j = 0; j <n; j++)
+           {
+            cout.width(3);
+            cout <<f[i][j]<<" ";
+           }
+         cout <<"\n";
+         }
+            break;
+        }
+			
+		 case (3): 
+			{ 
+			int n=10,n1=1, n2=2, n3=3, n4=4, n5=5,n6=6, n7=7 ,n8=8,n9=9,n10=10;
+            int arr[10][10];
+            double **f = new double*[10]; 
+            for (int i = 0; i < 10; i++)
+             f[i] = new double[n];
+               for (int i = 0; i < n; i++)
+              {
+                 for (int j = 0; j < n; j++)
+                 {
+                  f[i][j] =1 + rand() % 100 ;
+                 }
+              }  
+     
+        cout << "Матрица до перемещения блоков\n";
+        for (int i = 0; i < n; i++)
+        {
+        for (int j = 0; j <n; j++)
+          {
+           cout.width(3);
+           cout <<f[i][j]<<"  ";
+          }
+           cout <<"\n";
+        }
+     
+      
+        double *temp, *tomp,*timp, *tamp , *tump ;
+        temp=f[n1-1];
+        tomp=f[n2-1];
+        timp=f[n3-1];
+        tamp=f[n4-1];
+        tump=f[n5-1];
+        f[n1-1]=f[n10-1];
+        f[n2-1]=f[n9-1];
+        f[n3-1]=f[n8-1];
+        f[n4-1]=f[n7-1];
+        f[n5-1]=f[n6-1];
+        f[n6-1]=tump;
+        f[n7-1]=tamp;
+        f[n8-1]=timp;
+        f[n9-1]=tomp;
+        f[n10-1]=temp;
+      cout << "Матрица после перемещения блоков\n";
+        for (int i = 0; i < n; i++)
+         {
+         for (int j = 0; j <n; j++)
+           {
+            cout.width(3);
+            cout <<f[i][j]<<" ";
+           }
+          cout <<"\n";
+         }
+         break;
+          }
+	 }
+   }
+	while (razmer != 4);
+	break;
+	}
+		case(3): 
+		{ 
+		 int por;
+		 cout <<"Введите порядок матрицы: ";
+		 cin>> por;
+		 int  Arr[por][por], k1;//k1 является  максимальным числом для рандомных чисел в матрице
+		 cout << "Введите максимальное число для генерации рандомных чисел: ";
+		 cin >> k1;
+		 for (int i = 0; i < por; i++)
+           {
+             for (int j = 0; j < por; j++)
+              {
+               Arr[i][j] =1 + rand() % k1 ;
+              }
+           }  
+     
+         cout << "Матрица до сортировки: \n";
+            for (int i = 0; i < por; i++)
+             {
+              for (int j = 0; j <por; j++)
+               {
+                cout.width(3);
+                cout <<Arr[i][j]<<" ";
+               }
+              cout <<"\n";
+             }
+        cout <<"Матрица после сортировки: \n";   
+			for (int i = 0; i < por*por; i++)//Начинаю сортировку
+				for (int j = 0; j < por*por-1; j++)
+				if (*(*Arr + j) > *(*Arr + j + 1))
+				swap(*(*Arr + j), *(*Arr + j + 1));
+                   for (int i = 0; i < por; i++) 
+					{
+					 for (int j = 0; j < por; j++) 
+					   {
+						cout.width(3);
+						cout << *(*(Arr + i) + j) << " ";
+						}
+					cout << endl;
+					}
+		       break;
+		        }
+       
+		   case (4):
+            { 
+		      int por;
+		      cout <<"Введите порядок матрицы: ";
+		      cin>> por;
+		      int  Arr[por][por],chislo, k1;//k1 является  максимальным числом для рандомных чисел в матрице
+		      cout << "Введите максимальное число для генерации рандомных чисел: ";
+		      cin >> k1;
+		      for (int i = 0; i < por; i++)
+              {
+                for (int j = 0; j < por; j++)
+                {
+                 Arr[i][j] =1 + rand() % k1 ;
+                }
+              }  
+     
+            cout << "Матрица до вычитания: \n";
+            for (int i = 0; i < por; i++)
+            {
+             for (int j = 0; j <por; j++)
+              {
+              cout.width(3);
+              cout <<Arr[i][j]<<" ";
+              }
+             cout <<"\n";
+            }
+           cout <<"Введите вычитаемое: ";
+           cin >> chislo;
+           for (int i = 0; i < por; i++) 
+			{
+			 for (int j = 0; j < por; j++) 
+				{
+				cout.width(3);
+				cout << Arr[i][j]-chislo <<  " ";
+				}
+			  cout << endl;
+			}
+    
+	   break;
+        }
+             case (5): 
+               { 
+		       int por;
+		       cout <<"Введите порядок матрицы: ";
+		       cin>> por;
+		       int  Arr[por][por],chislo, k1;//k1 является  максимальным числом для рандомных чисел в матрице
+		       cout << "Введите максимальное число для генерации рандомных чисел: ";
+		       cin >> k1;
+		       for (int i = 0; i < por; i++)
+               {
+                 for (int j = 0; j < por; j++)
+                 {
+                  Arr[i][j] =1 + rand() % k1 ;
+                 }
+               }  
+        cout << "Матрица до сложения: \n";
+        for (int i = 0; i < por; i++)
+          {
+             for (int j = 0; j <por; j++)
+            {
+             cout.width(3);
+             cout <<Arr[i][j]<<" ";
+            }
+          cout <<"\n";
+          }
+        cout <<"Введите слагаемое: ";
+        cin >> chislo;
+        for (int i = 0; i < por; i++) 
+			{
+				for (int j = 0; j < por; j++) 
+				{
+				cout.width(3);
+				cout << Arr[i][j]+chislo <<  " ";
+				}
+			 cout << endl;
+			}
+         break;
+        }
+                case (6): 
+                { 
+		         int por;
+		         cout <<"Введите порядок матрицы: ";
+		         cin>> por;
+		         int  Arr[por][por],chislo, k1;//k1 является  максимальным числом для рандомных чисел в матрице
+		         cout << "Введите максимальное число для генерации рандомных чисел: ";
+		         cin >> k1;
+		         for (int i = 0; i < por; i++)
+                 {
+                 for (int j = 0; j < por; j++)
+                  {
+                   Arr[i][j] =1 + rand() % k1 ;
+                  }
+                 }  
+         cout << "Матрица до умножения: \n";
+           for (int i = 0; i < por; i++)
+           {
+            for (int j = 0; j <por; j++)
+            {
+            cout.width(3);
+            cout <<Arr[i][j]<<" ";
+            }
+           cout <<"\n";
+          }
+    cout <<"Введите множетель: ";
+    cin >> chislo;
+    for (int i = 0; i < por; i++) 
+	  {
+		for (int j = 0; j < por; j++) 
+			{
+				cout.width(3);
+				cout << Arr[i][j]*chislo <<  " ";
+			}
+		cout << endl;
+	  }
+        break;
+    }
+               case (7): 
+               { 
+		       int por;
+		       cout <<"Введите порядок матрицы: ";
+		       cin>> por;
+		       int  Arr[por][por],chislo, k1;//k1 является  максимальным числом для рандомных чисел в матрице
+		       cout << "Введите максимальное число для генерации рандомных чисел: ";
+		       cin >> k1;
+		       for (int i = 0; i < por; i++)
+                {
+                 for (int j = 0; j < por; j++)
+                  {
+                   Arr[i][j] =1 + rand() % k1 ;
+                  }
+                }  
+             cout << "Матрица до деления: \n";
+               for (int i = 0; i < por; i++)
+               {
+               for (int j = 0; j <por; j++)
+                 {
+                  cout.width(3);
+                  cout <<Arr[i][j]<<" ";
+      
+                 }
+                cout <<"\n";
+               }
+            cout <<"Введите делитель: ";
+            cin >> chislo;
+            for (int i = 0; i < por; i++) 
+			   {
+				for (int j = 0; j < por; j++) 
+				   {
+					cout.width(5);
+				    cout << (double)Arr[i][j]/(double)chislo <<" ";
+				   }
+				cout << endl;
+				}
+                break;
+            }
+	    }
+	
+      break;  
+    }
+	  
+         case (4):
+         laba4_all();
+         break;
+        
+      }
+    }   while (task != 5);  
+}
